@@ -22,7 +22,7 @@
 include_recipe "postgresql::server"
 include_recipe "database::postgresql"
 
-# randomly generate Jira MySQL password
+# randomly generate Jira PostgreSQL password
 node.set_unless['jira']['local_database']['password'] = secure_password
 node.save unless Chef::Config['solo']
 
@@ -38,7 +38,7 @@ end
 # Needs to have UNICODE encoding - see https://confluence.atlassian.com/display/JIRA051/Connecting+JIRA+to+PostgreSQL
 postgresql_database 'jira' do
   connection postgresql_connection_info
-  encoding 'UNICODE'
+  #encoding "utf8"
   owner 'postgres'
   action :create
 end
